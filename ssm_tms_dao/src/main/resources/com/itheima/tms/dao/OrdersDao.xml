@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.tms.dao.OrdersDao">
+
+    <resultMap id="orderMap" type="orders">
+        <id  property="id" column="id" />
+        <result property="orderNum" column="orderNum"/>
+        <result property="orderTime" column="orderTime"/>
+        <result property="orderStatus" column="orderStatus"/>
+        <result property="peopleCount" column="peopleCount"/>
+        <result property="peopleCount" column="peopleCount"/>
+        <result property="payType" column="payType"/>
+        <result property="orderDesc" column="orderDesc"/>
+        <association property="product" column="productid"
+                     select="com.itheima.tms.dao.ProductDao.findByid" />
+    </resultMap>
+
+
+    <!--获取所有的订单信息-->
+    <select id="findAll" resultMap="orderMap" parameterType="String">
+        select * from orders
+        <where>
+            <if test="id != null and id.length > 0">
+                and id = #{oid}
+            </if>
+        </where>
+    </select>
+
+
+    <resultMap id="orderDetailMap" type="orders">
+        <id  property="id" column="id" />
+        <result property="orderNum" column="orderNum"/>
+        <result property="orderTime" column="orderTime"/>
+        <result property="orderStatus" column="orderStatus"/>
+        <result property="peopleCount" column="peopleCount"/>
+        <result property="peopleCount" column="peopleCount"/>
+        <result property="payType" column="payType"/>
+        <result property="orderDesc" column="orderDesc"/>
+        <association property="product" column="productid"
+                     select="com.itheima.tms.dao.ProductDao.findByid" />
+        <association property="member" column="memberid"
+                     select="com.itheima.tms.dao.MemberDao.findById" />
+        <collection property="travellers" column="id" ofType="traveller"
+                    select="com.itheima.tms.dao.TravellerDao.findByOid" />
+    </resultMap>
+    <select id="findById" parameterType="string" resultMap="orderDetailMap">
+        select * from orders where id = #{oid}
+    </select>
+
+
+
+</mapper>
