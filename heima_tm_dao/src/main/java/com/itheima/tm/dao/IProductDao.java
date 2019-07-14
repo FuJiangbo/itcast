@@ -16,4 +16,9 @@ public interface IProductDao {
      */
     public List<Product> findAll() throws Exception;
 
+    /**
+     * 保存产品
+     * @param product
+     */
+    void save(Product product);
 }

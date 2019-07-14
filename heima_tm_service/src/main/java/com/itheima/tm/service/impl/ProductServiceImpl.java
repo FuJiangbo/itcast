@@ -28,4 +28,14 @@ public class ProductServiceImpl implements IProductService {
     public List<Product> findAll() throws Exception {
         return productDao.findAll();
     }
+
+    /**
+     * 保存产品
+     *
+     * @param product
+     */
+    @Override
+    public void save(Product product) {
+        productDao.save(product);
+    }
 }

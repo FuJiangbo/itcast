@@ -7,4 +7,14 @@
         select * from product
     </select>
 
+    <insert id="save" parameterType="product" >
+        insert into product(
+            productNum,productName,cityName,departureTime,productPrice,productDesc,
+            productStatus
+        ) values(
+            #{productNum},#{productName},#{cityName},#{departureTime},#{productPrice},
+            #{productDesc},#{productStatus}
+        )
+    </insert>
+
 </mapper>
