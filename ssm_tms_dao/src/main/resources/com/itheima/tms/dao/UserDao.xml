@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC
+        "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itheima.tms.dao.UserDao">
+
+    <resultMap id="userRoleMap" type="userinfo">
+        <id column="id" property="id" />
+        <result column="username" property="username" />
+        <result column="email" property="email" />
+        <result column="password" property="password" />
+        <result column="phoneNum" property="phoneNum" />
+        <result column="status" property="status" />
+        <collection property="roles" column="id" select="com.itheima.tms.dao.RoleDao.findByUid" />
+    </resultMap>
+
+    <select id="findByUserName" parameterType="string" resultMap="userRoleMap">
+        select * from users where username = #{userName}
+    </select>
+
+</mapper>

@@ -5,16 +5,19 @@ import com.itheima.tms.domain.Product;
 import com.itheima.tms.domain.Traveller;
 import com.itheima.tms.service.OrdersService;
 import com.itheima.tms.service.ProductService;
+import com.itheima.tms.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.sound.midi.Soundbank;
 import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("classpath*:applicationContext-*.xml")
+@ContextConfiguration({"classpath*:applicationContext-*.xml", "classpath*:spring-security.xml"})
 public class SpringMybatisTest {
 
     @Autowired
@@ -22,6 +25,9 @@ public class SpringMybatisTest {
 
     @Autowired
     private OrdersService ordersService;
+
+    @Autowired
+    private UserService userService;
 
     @Test
     public void test(){
@@ -50,5 +56,10 @@ public class SpringMybatisTest {
         }
     }
 
+    @Test
+    public void test4(){
+        UserDetails userDetails = userService.loadUserByUsername("F66ADBE117EC48CC8927A7E68C0C013F");
+        System.out.println(userDetails.getUsername());
+    }
 
 }
