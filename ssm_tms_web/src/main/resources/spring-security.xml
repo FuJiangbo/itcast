@@ -8,20 +8,24 @@
                            http://www.springframework.org/schema/security/spring-security.xsd">
 
     <!-- 配置不过滤的资源（静态资源及登录相关） -->
+    <security:http security="none" pattern="/favicon.ico"/>
     <security:http security="none" pattern="/login.jsp"/>
     <security:http security="none" pattern="/failer.jsp"/>
     <security:http security="none" pattern="/403.jsp"/>
+    <security:http security="none" pattern="/css/**"/>
+    <security:http security="none" pattern="/img/**"/>
+    <security:http security="none" pattern="/plugins/**"/>
 
     <security:http auto-config="true" use-expressions="false">
         <!-- 配置资料连接，表示任意路径都需要ROLE_USER权限 -->
-        <security:intercept-url pattern="/**" access="ROLE_USER"/>
+        <security:intercept-url pattern="/**" access="ROLE_user,ROLE_admin"/>
 
         <!-- 自定义登陆页面，login-page 自定义登陆页面 authentication-failure-url 用户权限校验失败之后才会跳转到这个页面，如果数据库中没有这个用户则不会跳转到这个页面。
             default-target-url 登陆成功后跳转的页面。 注：登陆页面用户名固定 username，密码 password，action:login -->
         <security:form-login login-page="/login.jsp"
-                             login-processing-url="/login" username-parameter="username"
-                             password-parameter="password" authentication-failure-url="/failer.jsp"
-                             default-target-url="/success.jsp"
+                             login-processing-url="/login.do" authentication-failure-url="/failer.jsp"
+                             default-target-url="/403.jsp"
+                             authentication-success-forward-url="/pages/main.jsp"
         />
         <!-- 登出， invalidate-session 是否删除session logout-url：登出处理链接 logout-success-url：登出成功页面
             注：登出操作 只需要链接到 logout即可登出当前用户 -->
@@ -35,7 +39,10 @@
     <!-- 切换成数据库中的用户名和密码 -->
     <security:authentication-manager>
         <security:authentication-provider user-service-ref="userService">
+            <!--登录的时候，密码是加密的-->
+            <security:password-encoder ref="passwordEncoder"/>
         </security:authentication-provider>
     </security:authentication-manager>
 
+    <bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
 </beans>

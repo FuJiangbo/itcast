@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$/ssm_tms_web" />
+  </component>
+  <component name="JavaScriptSettings">
+    <option name="languageLevel" value="ES6" />
+  </component>
+  <component name="MavenProjectsManager">
+    <option name="originalFiles">
+      <list>
+        <option value="$PROJECT_DIR$/ssm_tms_parent/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm_tms_utils/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm_tms_web/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm_tms_service/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm_tms_domain/pom.xml" />
+        <option value="$PROJECT_DIR$/ssm_tms_dao/pom.xml" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>SQL</id>
+          </State>
+        </expanded-state>
+        <selected-state>
+          <State>
+            <id>SqlDialectInspection</id>
+          </State>
+        </selected-state>
+      </profile-state>
+    </entry>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="false" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+</project>

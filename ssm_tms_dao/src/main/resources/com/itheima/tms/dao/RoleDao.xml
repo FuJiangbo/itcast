@@ -3,10 +3,25 @@
         "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.itheima.tms.dao.RoleDao">
 
-    <select id="findByUid" parameterType="String" resultType="role">
+    <resultMap id="rolePermissionMap" type="role">
+        <id property="id" column="id" />
+        <result property="roleName" column="roleName" />
+        <result property="roleDesc" column="roleDesc" />
+        <collection property="permissions" column="id"  select="com.itheima.tms.dao.PermissionDao.findByRoleId"/>
+    </resultMap>
+    <select id="findByUid" parameterType="String" resultMap="rolePermissionMap">
         select * from role where id in (
             select roleId from users_role where userId=#{userId}
         )
     </select>
+
+
+    <select id="findAll" resultType="role">
+        select * from role
+    </select>
+
+    <insert id="save" parameterType="role">
+        insert into role(roleName,roleDesc) values(#{roleName},#{roleDesc})
+    </insert>
 
 </mapper>

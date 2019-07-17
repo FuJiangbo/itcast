@@ -16,4 +16,16 @@ public interface RoleDao {
      */
     public List<Role> findByUid(String uid);
 
+    /**
+     * 查询所有角色
+     * @return
+     */
+    public List<Role> findAll();
+
+    /**
+     * 保存角色
+     * @param role
+     */
+    public void save(Role role);
+
 }

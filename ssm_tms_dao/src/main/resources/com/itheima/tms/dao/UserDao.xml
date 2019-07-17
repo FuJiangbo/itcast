@@ -17,4 +17,20 @@
         select * from users where username = #{userName}
     </select>
 
+    <select id="findAll" resultType="userinfo">
+        select * from users
+    </select>
+
+    <insert id="save" parameterType="userinfo">
+        insert into users(
+            email,username,password,phoneNum,status
+        ) values (
+            #{email},#{username},#{password},#{phoneNum},#{status}
+        )
+    </insert>
+
+    <select id="findById" parameterType="String" resultMap="userRoleMap">
+        select * from users where id = #{id}
+    </select>
+
 </mapper>

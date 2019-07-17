@@ -10,6 +10,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -24,6 +25,9 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @Override
     public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 
@@ -31,7 +35,14 @@ public class UserServiceImpl implements UserService {
         UserInfo userInfo = userDao.findByUserName(userName);
 
         //将用户信息封装为UserDetail
-        User user = new User(userInfo.getUsername(), "{noop}"+userInfo.getPassword(),
+        /*User user = new User(userInfo.getUsername(), "{noop}"+userInfo.getPassword(),
+                getRolesAuthority(userInfo.getRoles()));*/
+
+        User user = new User(userInfo.getUsername(), userInfo.getPassword(),
+                userInfo.getStatus() == 0 ? false : true ,
+                true,
+                true,
+                true,
                 getRolesAuthority(userInfo.getRoles()));
 
         //返回UserDetail
@@ -46,5 +57,40 @@ public class UserServiceImpl implements UserService {
             }
         }
         return aList;
+    }
+
+    /**
+     * 查询所有用户
+     *
+     * @return
+     */
+    @Override
+    public List<UserInfo> findAll() {
+        return userDao.findAll();
+    }
+
+    /**
+     * 保存用户
+     *
+     * @param userInfo
+     */
+    @Override
+    public void save(UserInfo userInfo) {
+        //对密码进行加密
+        userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
+        //保存用户
+        userDao.save(userInfo);
+
+    }
+
+    /**
+     * 查询指定用户
+     *
+     * @param uid
+     * @return
+     */
+    @Override
+    public UserInfo load(String uid) {
+        return userDao.findById(uid);
     }
 }
