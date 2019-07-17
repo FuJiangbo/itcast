@@ -33,4 +33,16 @@ public class PermissionServiceImpl implements PermissionService {
     public void save(Permission permission) {
         permissionDao.save(permission);
     }
+
+    /**
+     * 查询所有与指定角色没有关系的权限列表
+     *
+     * @param roleId
+     * @return
+     * @throws Exception
+     */
+    @Override
+    public List<Permission> findOtherPermissions(String roleId) throws Exception {
+        return permissionDao.findOtherPermissions(roleId);
+    }
 }

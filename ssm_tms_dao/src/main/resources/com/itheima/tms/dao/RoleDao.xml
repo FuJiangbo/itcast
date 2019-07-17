@@ -24,4 +24,18 @@
         insert into role(roleName,roleDesc) values(#{roleName},#{roleDesc})
     </insert>
 
+    <select id="findOtherRoles" parameterType="string" resultType="role">
+        select * from role where id not in (
+            select roleId from users_role where userId=#{userId}
+        )
+    </select>
+
+    <select id="findById" parameterType="string" resultMap="rolePermissionMap">
+        select * from role where id=#{roleId}
+    </select>
+
+    <insert id="addPermissionToRole" >
+        insert into role_permission(roleId,permissionId) values (#{roleId},#{permissionId})
+    </insert>
+
 </mapper>

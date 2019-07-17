@@ -36,4 +36,51 @@ public class RoleServiceImpl implements RoleService {
     public void save(Role role) {
         roleDao.save(role);
     }
+
+    /**
+     * 查找指定userid没有添加的所有权限
+     *
+     * @param userId
+     * @return
+     */
+    @Override
+    public List<Role> findOtherRoles(String userId) {
+        return roleDao.findOtherRoles(userId);
+    }
+
+    /**
+     * 添加权限到角色
+     *
+     * @param roleId
+     * @param permissionIds
+     * @throws Exception
+     */
+    @Override
+    public void addPermissionToRole(String roleId, String[] permissionIds) throws Exception {
+        for(String permissionId:permissionIds){
+            roleDao.addPermissionToRole(roleId,permissionId);
+        }
+    }
+
+    /**
+     * 删除角色
+     *
+     * @param roleId
+     * @throws Exception
+     */
+    @Override
+    public void deleteRoleById(String roleId) throws Exception {
+
+    }
+
+    /**
+     * 根据roleId获取role
+     *
+     * @param roleId
+     * @return
+     */
+    @Override
+    public Role findById(String roleId) {
+        return roleDao.findById(roleId);
+    }
 }

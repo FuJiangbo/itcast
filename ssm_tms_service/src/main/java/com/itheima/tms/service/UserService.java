@@ -1,6 +1,7 @@
 package com.itheima.tms.service;
 
 import com.itheima.tms.domain.UserInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -27,4 +28,11 @@ public interface UserService extends UserDetailsService {
      * @return
      */
     UserInfo load(String uid);
+
+    /**
+     * 给指定用户添加权限
+     * @param userId
+     * @param roleIds
+     */
+    void addRoleToUser(String userId, String[] roleIds);
 }

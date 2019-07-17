@@ -1,6 +1,7 @@
 package com.itheima.tms.dao;
 
 import com.itheima.tms.domain.UserInfo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.core.userdetails.User;
 
 import java.util.List;
@@ -35,4 +36,11 @@ public interface UserDao {
      * @return
      */
     UserInfo findById(String uid);
+
+    /**
+     * 给指定用户添加权限
+     * @param userId
+     * @param roleId
+     */
+    void addRoleToUser(@Param("userId") String userId, @Param("roleId") String roleId);
 }

@@ -1,5 +1,6 @@
 package com.itheima.tms.service.impl;
 
+import com.itheima.tms.dao.RoleDao;
 import com.itheima.tms.dao.UserDao;
 import com.itheima.tms.domain.Role;
 import com.itheima.tms.domain.UserInfo;
@@ -92,5 +93,20 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserInfo load(String uid) {
         return userDao.findById(uid);
+    }
+
+    /**
+     * 给指定用户添加权限
+     *
+     * @param userId
+     * @param roleIds
+     */
+    @Override
+    public void addRoleToUser(String userId, String[] roleIds) {
+        if(roleIds != null){
+            for (String roleId : roleIds) {
+                userDao.addRoleToUser(userId, roleId);
+            }
+        }
     }
 }

@@ -19,4 +19,10 @@
         insert into permission(permissionName,url) values(#{permissionName},#{url})
     </insert>
 
+    <select id="findOtherPermissions" parameterType="string" resultType="permission">
+        select * from permission where id not in (
+            select permissionId from role_permission where roleId=#{roleId}
+        )
+    </select>
+
 </mapper>

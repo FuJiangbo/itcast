@@ -1,6 +1,7 @@
 package com.itheima.tms.dao;
 
 import com.itheima.tms.domain.Role;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -27,5 +28,29 @@ public interface RoleDao {
      * @param role
      */
     public void save(Role role);
+
+    //@Select("select * from role where id not in (select roleId from users_role where userId=#{userId})")
+
+    /**
+     * 查找指定userid没有添加的所有权限
+     * @param userId
+     * @return
+     */
+    List<Role> findOtherRoles(String userId);
+
+    /**
+     * 根据roleId获取Role
+     * @param roleId
+     * @return
+     */
+    Role findById(String roleId);
+
+    /**
+     * 给角色绑定权限
+     * @param roleId
+     * @param permissionId
+     */
+    void addPermissionToRole(@Param("roleId") String roleId, @Param("permissionId") String permissionId);
+
 
 }

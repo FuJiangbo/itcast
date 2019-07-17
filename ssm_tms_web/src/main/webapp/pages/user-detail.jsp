@@ -8,7 +8,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-<title>数据 - AdminLTE2定制版</title>
+<title>ITCAST·黑马旅游网后台管理系统</title>
 <meta name="description" content="AdminLTE2定制版">
 <meta name="keywords" content="AdminLTE2定制版">
 
@@ -143,17 +143,16 @@
 								</tr>
 
 								<tbody>
-									<c:forEach items="${user.roles}" var="role">
-										<tr data-tt-id="1" data-tt-parent-id="0">
+									<c:forEach items="${user.roles}" var="role" varStatus="s">
+										<tr data-tt-id="${s.count}" data-tt-parent-id="0">
 											<td>${role.roleName }</td>
 											<td>${role.roleDesc }</td>
 										</tr>
 										<c:forEach items="${role.permissions}" var="permission">
-											<tr data-tt-id="1-1" data-tt-parent-id="1">
+											<tr data-tt-id="1-1" data-tt-parent-id="${s.count}">
 												<td>${permission.permissionName}</td>
 												<td>${permission.url}</td>
 											</tr>
-
 										</c:forEach>
 									</c:forEach>
 								</tbody>

@@ -27,4 +27,11 @@ public interface PermissionDao {
      * @param permission
      */
     void save(Permission permission);
+
+    /**
+     * 查询所有与指定角色没有关系的权限列表
+     * @param roleId
+     * @return
+     */
+    List<Permission> findOtherPermissions(String roleId);
 }

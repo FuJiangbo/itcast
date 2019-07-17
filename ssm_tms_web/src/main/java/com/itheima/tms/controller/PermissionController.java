@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Controller
@@ -25,7 +26,7 @@ public class PermissionController {
         return mv;
     }
 
-
+    @RolesAllowed("admin")
     @RequestMapping("/save")
     public String save(Permission permission){
         permissionService.save(permission);
